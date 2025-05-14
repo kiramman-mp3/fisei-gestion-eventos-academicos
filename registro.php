@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("sssssss", $nombre, $correo, $password, $carrera, $rutas['cedula'], $rutas['papeleta'], $rutas['matricula']);
     $stmt->execute();
 
-    echo "Registro exitoso. <a href='login.php'>Iniciar sesión</a>";
+    echo "<div class='alert alert-success text-center'>Registro exitoso. <a href='login.php'>Iniciar sesión</a></div>";
     exit;
 }
 ?>
@@ -38,56 +38,74 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8">
   <title>Registro Estudiante</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-  <h2>Registro de Estudiante</h2>
-  <form method="POST" enctype="multipart/form-data" onsubmit="return validarCorreo()">
-    <label>Nombre completo:</label>
-    <input type="text" name="nombre" required><br>
+<body class="bg-light">
 
-    <label>Correo institucional (@uta.edu.ec):</label>
-    <input type="email" name="correo" id="correo" required><br>
+<div class="container py-5">
+  <h2 class="mb-4 text-center text-primary">Registro de Estudiante</h2>
 
-    <label>Contraseña:</label>
-    <input type="password" name="password" required><br>
+  <form method="POST" enctype="multipart/form-data" class="card p-4 shadow" onsubmit="return validarCorreo()">
+    <div class="mb-3">
+      <label class="form-label">Nombre completo:</label>
+      <input type="text" name="nombre" class="form-control" required>
+    </div>
 
-    <div id="carreraSelect" style="display:none;">
-      <label>Carrera:</label>
-      <select name="carrera" required>
+    <div class="mb-3">
+      <label class="form-label">Correo institucional (@uta.edu.ec):</label>
+      <input type="email" name="correo" id="correo" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Contraseña:</label>
+      <input type="password" name="password" class="form-control" required>
+    </div>
+
+    <div class="mb-3" id="carreraSelect" style="display:none;">
+      <label class="form-label">Carrera:</label>
+      <select name="carrera" class="form-select">
         <option value="">--Seleccione--</option>
         <option value="Software">Ingeniería en Software</option>
         <option value="Electrónica">Electrónica</option>
         <option value="Industrial">Industrial</option>
-        <!-- Agregar más carreras si es necesario -->
-      </select><br>
+      </select>
     </div>
 
-    <label>Subir cédula (PDF o imagen):</label>
-    <input type="file" name="cedula" accept="application/pdf,image/*" required><br>
+    <div class="mb-3">
+      <label class="form-label">Subir cédula (PDF o imagen):</label>
+      <input type="file" name="cedula" class="form-control" accept="application/pdf,image/*" required>
+    </div>
 
-    <label>Subir papeleta de votación:</label>
-    <input type="file" name="papeleta" accept="application/pdf,image/*" required><br>
+    <div class="mb-3">
+      <label class="form-label">Subir papeleta de votación:</label>
+      <input type="file" name="papeleta" class="form-control" accept="application/pdf,image/*" required>
+    </div>
 
-    <label>Subir certificado de matrícula:</label>
-    <input type="file" name="matricula" accept="application/pdf,image/*" required><br>
+    <div class="mb-3">
+      <label class="form-label">Subir certificado de matrícula:</label>
+      <input type="file" name="matricula" class="form-control" accept="application/pdf,image/*" required>
+    </div>
 
-    <button type="submit">Registrarse</button>
+    <div class="d-grid">
+      <button type="submit" class="btn btn-primary">Registrarse</button>
+    </div>
   </form>
+</div>
 
-  <script>
-    function validarCorreo() {
-      const correo = document.getElementById('correo').value;
-      const carreraDiv = document.getElementById('carreraSelect');
-      if (correo.includes('@uta.edu.ec')) {
-        carreraDiv.style.display = 'block';
-        return true;
-      } else {
-        carreraDiv.style.display = 'none';
-        return true;
-      }
-    }
-    document.getElementById('correo').addEventListener('input', validarCorreo);
-  </script>
+<script>
+function validarCorreo() {
+  const correo = document.getElementById('correo').value;
+  const carreraDiv = document.getElementById('carreraSelect');
+  if (correo.includes('@uta.edu.ec')) {
+    carreraDiv.style.display = 'block';
+  } else {
+    carreraDiv.style.display = 'none';
+  }
+  return true;
+}
+document.getElementById('correo').addEventListener('input', validarCorreo);
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

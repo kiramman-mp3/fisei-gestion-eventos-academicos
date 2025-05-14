@@ -1,6 +1,6 @@
 <?php
-include('conexion.php');
 session_start();
+include('conexion.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $correo = $_POST['correo'];
@@ -19,7 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
     }
-    $error = "Credenciales incorrectas";
+
+    $error = "Correo o contraseña incorrectos";
 }
 ?>
 
@@ -27,23 +28,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Login - FISEI Eventos</title>
+  <title>Login - Eventos FISEI</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
-  <h2>Iniciar sesión</h2>
+<body class="bg-light">
 
-  <?php if (isset($error)) echo "<p style='color:red;'>$error</p>"; ?>
+<div class="container py-5">
+  <div class="text-center mb-4">
+    <h2 class="text-primary">Iniciar Sesión</h2>
+    <p class="text-muted">Accede con tu correo institucional</p>
+  </div>
 
-  <form method="POST">
-    <label>Correo:</label>
-    <input type="email" name="correo" required><br>
+  <?php if (isset($error)): ?>
+    <div class="alert alert-danger text-center"><?= $error ?></div>
+  <?php endif; ?>
 
-    <label>Contraseña:</label>
-    <input type="password" name="password" required><br>
+  <form method="POST" class="card shadow p-4 mx-auto" style="max-width: 450px;">
+    <div class="mb-3">
+      <label class="form-label">Correo:</label>
+      <input type="email" name="correo" class="form-control" required>
+    </div>
 
-    <button type="submit">Ingresar</button>
+    <div class="mb-3">
+      <label class="form-label">Contraseña:</label>
+      <input type="password" name="password" class="form-control" required>
+    </div>
+
+    <div class="d-grid">
+      <button type="submit" class="btn btn-primary">Ingresar</button>
+    </div>
+
+    <div class="text-center mt-3">
+      <a href="registro.php" class="text-decoration-none">¿No tienes cuenta? Regístrate aquí</a>
+    </div>
   </form>
+</div>
 
-  <p>¿No tienes cuenta? <a href="registro.php">Regístrate</a></p>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
