@@ -1,6 +1,6 @@
 <?php
 require_once("../conexion.php");
-require_once("../libs/fpdf/fpdf.php"); // Asegúrate de tenerla instalada
+require_once("../libs/fpdf/fpdf.php");
 
 session_start();
 $usuario_id = $_SESSION['usuario_id'];
