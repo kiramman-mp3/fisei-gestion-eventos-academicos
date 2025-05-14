@@ -2,6 +2,8 @@
 session_start();
 include('conexion.php');
 
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $correo = $_POST['correo'];
     $password = $_POST['password'];
